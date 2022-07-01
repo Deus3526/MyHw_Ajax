@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "HW1";
+}
+@section Styles{ 
+<style>
+    table,th,td{border:1px solid blue;text-align:center;}
+    th{font-size:200%}
+</style>
+}
+<h1>HW1</h1>
+<div>
+    <table class="table table-dark table-striped">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+@section Scripts{ 
+<script>
+    var emp = {
+        "employees": [
+            { "name": "Tom", "workYears": 3, "salary": 35000 },
+            { "name": "Jack", "workYears": 5, "salary": 40000 },
+            { "name": "Mary", "workYears": 7, "salary": 45000 }
+        ]
+    };
+    let thead = $("thead");
+    let tbody = $("tbody");
+    let count = 1;
+    let tr = document.createElement("tr");
+    thead.append(tr);
+    let th = document.createElement("th");
+    th.textContent = "#";
+    tr.appendChild(th);
+    for (prop in emp.employees[0])
+    {
+        th = document.createElement("th");
+        th.textContent = prop;
+        tr.appendChild(th);
+    }
+    for (item of emp.employees)
+    {
+        tr = document.createElement("tr");
+        tr.className=""
+        tbody.append(tr);
+        let td = document.createElement("td");
+        td.textContent = count;
+        tr.appendChild(td);
+        for (prop in item)
+        {
+            td = document.createElement("td");
+            td.textContent = item[prop];
+            tr.appendChild(td);
+        }
+        count++;
+    }
+</script>
+}
