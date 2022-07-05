@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "HW3";
+}
+
+<h1>HW3</h1>
+<select id="city" name="city"></select>
+<select id="district" name="district"></select>
+<select id="road" name="road"></select>
+
+@section Scripts{ 
+    <script>
+        let selCity = $("#city");
+        let selDis = $("#district");
+        let selRoad = $("#road");
+        loadAll();
+        selCity.on("change",async () =>
+        {
+
+            let response = await fetch("@Url.Content("~/HW/District")" + `?city=${selCity.val()}`);
+            let district = await response.json();
+            selDis.empty()
+            for (d of district)
+            {
+                let op = new Option(d, d);
+                selDis.append(op);
+            }
+        })
+
+        selDis.on("change", async () =>
+        {
+
+            let response = await fetch("@Url.Content("~/HW/Road")" + `?district=${selDis.val()}`);
+            let road = await response.json();
+            // console.log(road)
+            selRoad.empty()
+            for (r of road)
+            {
+                let op = new Option(r, r);
+                selRoad.append(op);
+            }
+        })
+    async function loadAll()
+    {
+        let response = await fetch("@Url.Content("~/HW/City")");
+        let city = await response.json();
+       // console.log(city)
+        for (c of city)
+        {
+            let op = new Option(c, c);
+            selCity.append(op);
+        }
+
+         response = await fetch("@Url.Content("~/HW/District")" + `?city=${selCity.val()}`);
+        let district = await response.json();
+        //console.log(district)
+        for (d of district)
+        {
+            let op = new Option(d, d);
+            selDis.append(op);
+        }
+
+        response = await fetch("@Url.Content("~/HW/Road")" + `?district=${selDis.val()}`);
+        let road = await response.json();
+       // console.log(road)
+        for (r of road)
+        {
+            let op = new Option(r, r);
+            selRoad.append(op);
+        }
+    }
+    </script>
+}

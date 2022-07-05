@@ -23,6 +23,10 @@ namespace MyHw_Ajax.Controllers
         {
             return View();
         }
+        public IActionResult HW3()
+        {
+            return View();
+        }
         public ContentResult Check(string name)
         {
             var q = from m in db.Members where m.Name == name select m;
@@ -32,6 +36,21 @@ namespace MyHw_Ajax.Controllers
                 return Content($"{name}可使用", "text/plain", System.Text.Encoding.UTF8);
             }
 
+        }
+        public ActionResult City()
+        {
+            var q = (from c in db.Addresses select c.City).Distinct();
+            return Json(q);
+        }
+        public ActionResult District(string city)
+        {
+            var q = (from d in db.Addresses where d.City==city select d.SiteId).Distinct();
+            return Json(q);
+        }
+        public ActionResult Road(string district)
+        {
+            var q = (from r in db.Addresses where r.SiteId==district  select r.Road);
+            return Json(q);
         }
     }
 }
